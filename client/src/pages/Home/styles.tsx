@@ -3,7 +3,8 @@ import styled from "styled-components";
 interface Props {
   color?: 'red' | 'green' | 'blue';
   fontSize?: 'Principal' | 'Recent'
-  margin?: 'oneRem'
+  margin?: 'oneRem',
+  width?: 'economy'
 }
 
 export const Content = styled.div`
@@ -95,16 +96,30 @@ export const TitleNotice = styled.text<Props>`
       }
     }};
   }
+
+  @media (max-width: 1440px) {
+    font-size: ${({ fontSize }) => {
+      switch (fontSize) {
+        case 'Principal':
+          return '2.6rem';
+        case 'Recent':
+          return '1.2rem';
+        default:
+          return '0.9rem';
+      }
+    }};
+  }
 `
 
 export const ContainerRecentNotices = styled.div`
   flex-direction: row;
   display: flex;
   justify-content: space-between;
-  width: 45%;
+  width: auto;
 
   @media (min-width: 1440px) {
     width: 35%;
+    justify-content: flex-end;
   };
 
   @media (max-width: 768px) {
@@ -144,14 +159,48 @@ export const ContainerOthersNotices = styled.div`
   }
 `
 
-export const ContainerTypeNotice = styled.div`
-  width: 17.5rem;
-  flex-direction: column;
+export const ContainerTypeNotice = styled.div<Props>`
+  width: ${({ width }) => {
+    switch (width) {
+      case 'economy':
+        return '50%';
+      default:
+        return '17.5rem';
+    }
+  }};
+  flex-direction: ${({ width }) => {
+    switch (width) {
+      case 'economy':
+        return 'row';
+      default:
+        return 'column';
+    }
+  }};
+  flex-wrap: wrap;
+  justify-content:  ${({ width }) => {
+    switch (width) {
+      case 'economy':
+        return 'space-between';
+      default:
+        return 'baseline';
+    }
+  }};
   display: flex;
   align-items: center;
 
   @media (max-width: 768px) {
     width: 100%;
+  }
+
+  @media (min-width: 1440px) {
+    width: ${({ width }) => {
+      switch (width) {
+        case 'economy':
+          return '40%';
+        default:
+          return '17.5rem';
+      }
+    }};
   }
 `
 

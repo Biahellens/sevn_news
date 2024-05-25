@@ -19,6 +19,7 @@ import diversidade from "@assets/diversidade.png";
 import { useEffect, useState } from "react";
 import { News } from "@models/News";
 import { NewsService } from "@services/newsService";
+import React from "react";
 
 export default function Home() {
   const [news, setNews] = useState<News[]>([]);
@@ -86,51 +87,51 @@ export default function Home() {
         )}
       </ContainerMainSubjects>
       <ContainerOthersNotices>
-        <ContainerTypeNotice>
+        <ContainerTypeNotice width="economy">
           {otherNews !== undefined && otherNews.length > 0 && (
             <>
-              {otherNews.map((row) => {
-                <>
+              {otherNews.map((row) => (
+                <React.Fragment key={row.id}>
                   {row.type === "ECONOMIA" && (
                     <ContainerOtherNotice key={row.id}>
                       <TargetType color="red" />
                       <TitleNotice>{row.title}</TitleNotice>
                     </ContainerOtherNotice>
                   )}
-                </>;
-              })}
+                </React.Fragment>
+              ))}
             </>
           )}
         </ContainerTypeNotice>
         <ContainerTypeNotice>
           {otherNews !== undefined && otherNews.length > 0 && (
             <>
-              {otherNews.map((row) => {
-                <>
+              {otherNews.map((row) => (
+                <React.Fragment key={row.id}>
                   {row.type === "EDUCACAO" && (
                     <ContainerOtherNotice key={row.id}>
                       <TargetType color="blue" />
                       <TitleNotice>{row.title}</TitleNotice>
                     </ContainerOtherNotice>
                   )}
-                </>;
-              })}
+                </React.Fragment>
+              ))}
             </>
           )}
         </ContainerTypeNotice>
         <ContainerTypeNotice>
           {otherNews !== undefined && otherNews.length > 0 && (
             <>
-              {otherNews.map((row) => {
-                <>
+              {otherNews.map((row) => (
+                <React.Fragment key={row.id}>
                   {row.type === "DIVERSIDADE" && (
                     <ContainerOtherNotice key={row.id}>
                       <TargetType color="green" />
                       <TitleNotice>{row.title}</TitleNotice>
                     </ContainerOtherNotice>
                   )}
-                </>;
-              })}
+                </React.Fragment>
+              ))}
             </>
           )}
         </ContainerTypeNotice>
