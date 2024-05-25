@@ -7,19 +7,23 @@ import Carousel from '@components/Carousel/Carousel'
 // pages
 import Home from '@pages/Home/Home'
 import Notice from '@pages/Notice/Notice'
-import './App.css'
+import { Content, ContentPages } from './style'
 
 function App() {
   return (
     <>
       <Router>
         <Header />
-        <Carousel />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route index element={<Navigate to="/" />} />
-          <Route path="/notice" element={<Notice />} />
-        </Routes>
+        <Content>
+          <Carousel />
+          <ContentPages>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/notice" element={<Notice />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </ContentPages>
+        </Content>
       </Router>
     </>
   )
