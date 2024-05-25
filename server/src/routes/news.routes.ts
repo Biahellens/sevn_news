@@ -1,0 +1,12 @@
+import express from 'express';
+import { NewsController } from '../controllers/news.controller';
+
+const Router = express.Router();
+
+// Rotas para noticias
+Router.get('/:type/getByType', NewsController.getNewsByType);
+Router.get('/:id/getById', NewsController.getNewsById);
+Router.get('/latest', NewsController.getLastThreeNews);
+
+
+export { Router as newsRouter }
