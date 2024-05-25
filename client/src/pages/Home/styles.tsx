@@ -129,3 +129,60 @@ export const ContainerRecentNotice = styled.div`
 `
 
 export const Img = styled.img``
+
+export const ContainerOthersNotices = styled.div`
+  width: 100%;
+  height: auto;
+  padding: 5rem 0rem;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
+`
+
+export const ContainerTypeNotice = styled.div`
+  width: 17.5rem;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`
+
+export const ContainerOtherNotice = styled.div`
+  width: 17.5rem;
+  height: 3.1rem;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`
+
+export const TargetType = styled.div`
+  width: 5px;
+  height: 3.1rem;
+  border-radius: 100px;
+  background: ${({ color }) => {
+    switch (color) {
+      case 'red':
+        return '#FF2D2D';
+      case 'blue':
+        return '#24538B';
+      case 'green':
+        return '#248B28';
+      default:
+        return '#000000';
+    }
+  }};
+  margin-right: 0.5rem
+`
