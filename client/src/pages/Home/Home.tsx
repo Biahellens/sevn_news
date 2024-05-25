@@ -16,107 +16,123 @@ import {
 // imgs
 import educacao from "@assets/educacao.png";
 import diversidade from "@assets/diversidade.png";
+import { useEffect, useState } from "react";
+import { News } from "@models/News";
+import { NewsService } from "@services/newsService";
 
 export default function Home() {
+  const [news, setNews] = useState<News[]>([]);
+  const [otherNews, setOtherNews] = useState<News[]>([]);
+
+  const getNews = async () => {
+    const result = await NewsService.GetLastedNews();
+    if (result) {
+      setNews(result);
+    }
+  };
+
+  const getNewsByType = async () => {
+    const result = await NewsService.GetAll();
+
+    if (result) {
+      setOtherNews(result);
+    }
+  };
+
+  useEffect(() => {
+    getNews();
+    getNewsByType();
+  }, []);
+
   return (
     <Content>
       <ContainerMainSubjects>
-        <ContainerPrincipalNotice>
-          <TextType color="red">ECONOMIA</TextType>
-          <TitleNotice fontSize="Principal">
-            Quem não tiver valores a receber nesta etapa poderá ter nas próximas
-            fases, diz BC
-          </TitleNotice>
-        </ContainerPrincipalNotice>
-        <ContainerRecentNotices>
-          <ContainerRecentNotice>
-            <Img src={educacao} />
-            <>
-              <TextType color="blue" margin="oneRem">
-                EDUCAÇÃO
-              </TextType>
-              <TitleNotice fontSize="Recent">
-                Datafolha: Após ensino remoto, 76% precisam de reforço na
-                alfabetização
-              </TitleNotice>
-            </>
-          </ContainerRecentNotice>
-          <ContainerRecentNotice>
-            <Img src={diversidade} />
-            <>
-              <TextType color="green" margin="oneRem">
-                DIVERSIDADE
-              </TextType>
-              <TitleNotice fontSize="Recent">
-                Lotomania: com prêmio de R$ 5 milhões, veja os números sorteados
-                hoje
-              </TitleNotice>
-            </>
-          </ContainerRecentNotice>
-        </ContainerRecentNotices>
+        {news !== undefined && news.length > 0 ? (
+          <>
+            {news.map((row) => (
+              <>
+                {row.type === "ECONOMIA" ? (
+                  <ContainerPrincipalNotice key={row.id}>
+                    <TextType color="red">{row.type}</TextType>
+                    <TitleNotice fontSize="Principal">{row.resume}</TitleNotice>
+                  </ContainerPrincipalNotice>
+                ) : (
+                  <ContainerRecentNotices>
+                    <ContainerRecentNotice key={row.id}>
+                      <Img
+                        src={
+                          row.type === "DIVERSIDADE" ? diversidade : educacao
+                        }
+                      />
+                      <>
+                        <TextType
+                          color={row.type === "DIVERSIDADE" ? "green" : "blue"}
+                          margin="oneRem"
+                        >
+                          {row.type}
+                        </TextType>
+                        <TitleNotice fontSize="Recent">
+                          {row.resume}
+                        </TitleNotice>
+                      </>
+                    </ContainerRecentNotice>
+                  </ContainerRecentNotices>
+                )}
+              </>
+            ))}
+          </>
+        ) : (
+          <></>
+        )}
       </ContainerMainSubjects>
       <ContainerOthersNotices>
         <ContainerTypeNotice>
-          <ContainerOtherNotice>
-            <TargetType color="red" />
-            <TitleNotice>
-              Quem não tiver valores a receber poderá ter nas próximas fases,
-              diz BC
-            </TitleNotice>
-          </ContainerOtherNotice>
-          <ContainerOtherNotice>
-            <TargetType color="red" />
-            <TitleNotice>
-              Quem não tiver valores a receber poderá ter nas próximas fases,
-              diz BC
-            </TitleNotice>
-          </ContainerOtherNotice>
+          {otherNews !== undefined && otherNews.length > 0 && (
+            <>
+              {otherNews.map((row) => {
+                <>
+                  {row.type === "ECONOMIA" && (
+                    <ContainerOtherNotice key={row.id}>
+                      <TargetType color="red" />
+                      <TitleNotice>{row.title}</TitleNotice>
+                    </ContainerOtherNotice>
+                  )}
+                </>;
+              })}
+            </>
+          )}
         </ContainerTypeNotice>
         <ContainerTypeNotice>
-          <ContainerOtherNotice>
-            <TargetType color="red" />
-            <TitleNotice>
-              Quem não tiver valores a receber poderá ter nas próximas fases,
-              diz BC
-            </TitleNotice>
-          </ContainerOtherNotice>
-          <ContainerOtherNotice>
-            <TargetType color="red" />
-            <TitleNotice>
-              Quem não tiver valores a receber poderá ter nas próximas fases,
-              diz BC
-            </TitleNotice>
-          </ContainerOtherNotice>
+          {otherNews !== undefined && otherNews.length > 0 && (
+            <>
+              {otherNews.map((row) => {
+                <>
+                  {row.type === "EDUCACAO" && (
+                    <ContainerOtherNotice key={row.id}>
+                      <TargetType color="blue" />
+                      <TitleNotice>{row.title}</TitleNotice>
+                    </ContainerOtherNotice>
+                  )}
+                </>;
+              })}
+            </>
+          )}
         </ContainerTypeNotice>
         <ContainerTypeNotice>
-          <ContainerOtherNotice>
-            <TargetType color="blue" />
-            <TitleNotice>
-              Datafolha: Após ensino remoto, 76% precisam de reforço na
-              alfabetização
-            </TitleNotice>
-          </ContainerOtherNotice>
-          <ContainerOtherNotice>
-            <TargetType color="blue" />
-            <TitleNotice>
-              Datafolha: Após ensino remoto, 76% precisam de reforço na
-              alfabetização
-            </TitleNotice>
-          </ContainerOtherNotice>
-        </ContainerTypeNotice>
-        <ContainerTypeNotice>
-          <ContainerOtherNotice>
-            <TargetType color="green" />
-            <TitleNotice>
-              Lotomania: com prêmio de R$ 5 milhões, veja os números sorteados
-            </TitleNotice>
-          </ContainerOtherNotice>
-          <ContainerOtherNotice>
-            <TargetType color="green" />
-            <TitleNotice>
-              Lotomania: com prêmio de R$ 5 milhões, veja os números sorteados
-            </TitleNotice>
-          </ContainerOtherNotice>
+          {otherNews !== undefined && otherNews.length > 0 && (
+            <>
+              {otherNews.map((row) => {
+                <>
+                  {row.type === "DIVERSIDADE" && (
+                    <ContainerOtherNotice key={row.id}>
+                      <TargetType color="green" />
+                      <TitleNotice>{row.title}</TitleNotice>
+                    </ContainerOtherNotice>
+                  )}
+                </>;
+              })}
+            </>
+          )}
         </ContainerTypeNotice>
       </ContainerOthersNotices>
     </Content>

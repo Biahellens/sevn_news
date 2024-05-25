@@ -37,9 +37,9 @@ export const NewsService = {
     }
   },
 
-  GetByType: async (type: string) => {
+  GetAll: async () => {
     try {
-      const API_URL = `${baseUrlApi.baseUrlApi}/news/${type}/getByType`;
+      const API_URL = `${baseUrlApi.baseUrlApi}/news/getAll`;
       const httpHeaders = {
         "Content-Type": "application/json",
       };
