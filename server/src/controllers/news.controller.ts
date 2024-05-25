@@ -2,18 +2,16 @@ import { Request, Response } from 'express';
 import { readJSONFile } from '../database/data-source'
 
 export class NewsController {
-  static async getNewsByType(req: Request, res: Response) {
+  static async getAll(req: Request, res: Response) {
     try {
-      const { type } = req.params;
 
       const newsData = await readJSONFile();
-      const filteredNews = newsData.filter(news => news.type === type);
 
-      if (filteredNews.length === 0) {
+      if (newsData.length === 0) {
         return res.status(404).json({ message: 'Noticias não encontradas' });
       }
 
-      return res.status(200).json(filteredNews);
+      return res.status(200).json(newsData);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'Erro interno do servidor' });
