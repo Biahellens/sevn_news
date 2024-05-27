@@ -1,13 +1,31 @@
 import styled from "styled-components";
 
-export const Content = styled.div`
+interface Props {
+  margin?: 'notice',
+}
+
+export const Content = styled.div<Props>`
   width: 100%;
   height: 12rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 6.4rem;
-  margin-bottom: 6rem
+  margin-top: ${({ margin }) => {
+    switch (margin) {
+      case 'notice':
+        return '3rem';
+      default:
+        return '6.4rem';
+    }
+  }};
+  margin-bottom: ${({ margin }) => {
+    switch (margin) {
+      case 'notice':
+        return '3rem';
+      default:
+        return '6rem';
+    }
+  }};
 `
 
 export const ContainerCarousel = styled.div`

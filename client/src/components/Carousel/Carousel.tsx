@@ -3,12 +3,15 @@ import {
   ContainerCarousel
 } from './styles'
 
-// img
+interface CarouselProps {
+  notice?: boolean;
+}
 
-export default function Carousel() {
+
+export default function Carousel(props: CarouselProps) {
 
   return (
-    <Content>
+    <Content margin={props.notice ? 'notice' : undefined}>
       <ContainerCarousel></ContainerCarousel>
     </Content>
   );
