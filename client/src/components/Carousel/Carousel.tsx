@@ -1,6 +1,7 @@
 import {
   Content,
-  ContainerCarousel
+  ContainerCarousel,
+  Text
 } from './styles'
 
 interface CarouselProps {
@@ -12,7 +13,9 @@ export default function Carousel(props: CarouselProps) {
 
   return (
     <Content margin={props.notice ? 'notice' : undefined}>
-      <ContainerCarousel></ContainerCarousel>
+      <ContainerCarousel>
+        <Text>Publicidade</Text>
+      </ContainerCarousel>
     </Content>
   );
 }

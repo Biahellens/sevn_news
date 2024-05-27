@@ -35,8 +35,15 @@ export const ContainerCarousel = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
 
   @media (max-width: 768px) {
     width: 100%;
   }
+`
+
+export const Text = styled.text`
+  color: rgb(0, 0, 0, 20%);
+  font-size: 2rem;
+  font-weight: bold;
 `
