@@ -11,6 +11,7 @@ import {
   ContainerOtherNotice,
   TargetType,
   ContainerTypeNotice,
+  Main
 } from "./styles";
 
 // imgs
@@ -20,8 +21,12 @@ import { useEffect, useState } from "react";
 import { News } from "@models/News";
 import { NewsService } from "@services/newsService";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Carousel from "@components/Carousel/Carousel";
 
 export default function Home() {
+  const navigate = useNavigate()
+
   const [news, setNews] = useState<News[]>([]);
   const [otherNews, setOtherNews] = useState<News[]>([]);
 
@@ -46,96 +51,99 @@ export default function Home() {
   }, []);
 
   return (
-    <Content>
-      <ContainerMainSubjects>
-        {news !== undefined && news.length > 0 ? (
-          <>
-            {news.map((row) => (
+    <Main>
+      <Carousel />
+      <Content>
+        <ContainerMainSubjects>
+          {news !== undefined && news.length > 0 ? (
+            <>
+              {news.map((row) => (
+                <>
+                  {row.type === "ECONOMIA" ? (
+                    <ContainerPrincipalNotice key={row.id} onClick={() => navigate(`/notice/${row.id}`)}>
+                      <TextType color="red">{row.type}</TextType>
+                      <TitleNotice fontSize="Principal">{row.resume}</TitleNotice>
+                    </ContainerPrincipalNotice>
+                  ) : (
+                    <ContainerRecentNotices>
+                      <ContainerRecentNotice key={row.id} onClick={() => navigate(`/notice/${row.id}`)}>
+                        <Img
+                          src={
+                            row.type === "DIVERSIDADE" ? diversidade : educacao
+                          }
+                        />
+                        <>
+                          <TextType
+                            color={row.type === "DIVERSIDADE" ? "green" : "blue"}
+                            margin="oneRem"
+                          >
+                            {row.type}
+                          </TextType>
+                          <TitleNotice fontSize="Recent">
+                            {row.resume}
+                          </TitleNotice>
+                        </>
+                      </ContainerRecentNotice>
+                    </ContainerRecentNotices>
+                  )}
+                </>
+              ))}
+            </>
+          ) : (
+            <></>
+          )}
+        </ContainerMainSubjects>
+        <ContainerOthersNotices>
+          <ContainerTypeNotice width="economy">
+            {otherNews !== undefined && otherNews.length > 0 && (
               <>
-                {row.type === "ECONOMIA" ? (
-                  <ContainerPrincipalNotice key={row.id}>
-                    <TextType color="red">{row.type}</TextType>
-                    <TitleNotice fontSize="Principal">{row.resume}</TitleNotice>
-                  </ContainerPrincipalNotice>
-                ) : (
-                  <ContainerRecentNotices>
-                    <ContainerRecentNotice key={row.id}>
-                      <Img
-                        src={
-                          row.type === "DIVERSIDADE" ? diversidade : educacao
-                        }
-                      />
-                      <>
-                        <TextType
-                          color={row.type === "DIVERSIDADE" ? "green" : "blue"}
-                          margin="oneRem"
-                        >
-                          {row.type}
-                        </TextType>
-                        <TitleNotice fontSize="Recent">
-                          {row.resume}
-                        </TitleNotice>
-                      </>
-                    </ContainerRecentNotice>
-                  </ContainerRecentNotices>
-                )}
+                {otherNews.map((row) => (
+                  <React.Fragment key={row.id}>
+                    {row.type === "ECONOMIA" && (
+                      <ContainerOtherNotice key={row.id} onClick={() => navigate(`/notice/${row.id}`)}>
+                        <TargetType color="red" />
+                        <TitleNotice>{row.title}</TitleNotice>
+                      </ContainerOtherNotice>
+                    )}
+                  </React.Fragment>
+                ))}
               </>
-            ))}
-          </>
-        ) : (
-          <></>
-        )}
-      </ContainerMainSubjects>
-      <ContainerOthersNotices>
-        <ContainerTypeNotice width="economy">
-          {otherNews !== undefined && otherNews.length > 0 && (
-            <>
-              {otherNews.map((row) => (
-                <React.Fragment key={row.id}>
-                  {row.type === "ECONOMIA" && (
-                    <ContainerOtherNotice key={row.id}>
-                      <TargetType color="red" />
-                      <TitleNotice>{row.title}</TitleNotice>
-                    </ContainerOtherNotice>
-                  )}
-                </React.Fragment>
-              ))}
-            </>
-          )}
-        </ContainerTypeNotice>
-        <ContainerTypeNotice>
-          {otherNews !== undefined && otherNews.length > 0 && (
-            <>
-              {otherNews.map((row) => (
-                <React.Fragment key={row.id}>
-                  {row.type === "EDUCACAO" && (
-                    <ContainerOtherNotice key={row.id}>
-                      <TargetType color="blue" />
-                      <TitleNotice>{row.title}</TitleNotice>
-                    </ContainerOtherNotice>
-                  )}
-                </React.Fragment>
-              ))}
-            </>
-          )}
-        </ContainerTypeNotice>
-        <ContainerTypeNotice>
-          {otherNews !== undefined && otherNews.length > 0 && (
-            <>
-              {otherNews.map((row) => (
-                <React.Fragment key={row.id}>
-                  {row.type === "DIVERSIDADE" && (
-                    <ContainerOtherNotice key={row.id}>
-                      <TargetType color="green" />
-                      <TitleNotice>{row.title}</TitleNotice>
-                    </ContainerOtherNotice>
-                  )}
-                </React.Fragment>
-              ))}
-            </>
-          )}
-        </ContainerTypeNotice>
-      </ContainerOthersNotices>
-    </Content>
+            )}
+          </ContainerTypeNotice>
+          <ContainerTypeNotice>
+            {otherNews !== undefined && otherNews.length > 0 && (
+              <>
+                {otherNews.map((row) => (
+                  <React.Fragment key={row.id}>
+                    {row.type === "EDUCACAO" && (
+                      <ContainerOtherNotice key={row.id} onClick={() => navigate(`/notice/${row.id}`)}>
+                        <TargetType color="blue" />
+                        <TitleNotice>{row.title}</TitleNotice>
+                      </ContainerOtherNotice>
+                    )}
+                  </React.Fragment>
+                ))}
+              </>
+            )}
+          </ContainerTypeNotice>
+          <ContainerTypeNotice>
+            {otherNews !== undefined && otherNews.length > 0 && (
+              <>
+                {otherNews.map((row) => (
+                  <React.Fragment key={row.id}>
+                    {row.type === "DIVERSIDADE" && (
+                      <ContainerOtherNotice key={row.id} onClick={() => navigate(`/notice/${row.id}`)}>
+                        <TargetType color="green" />
+                        <TitleNotice>{row.title}</TitleNotice>
+                      </ContainerOtherNotice>
+                    )}
+                  </React.Fragment>
+                ))}
+              </>
+            )}
+          </ContainerTypeNotice>
+        </ContainerOthersNotices>
+      </Content>
+    </Main>
   );
 }

@@ -7,10 +7,11 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 6.4rem;
+  margin-bottom: 6rem
 `
 
 export const ContainerCarousel = styled.div`
-  width: 95%;
+  width: 100%;
   height: 12rem;
   background: #EBEFF1;
   display: flex;

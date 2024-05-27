@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 // components
 import Header from '@components/Header/Header'
-import Carousel from '@components/Carousel/Carousel'
 
 // pages
 import Home from '@pages/Home/Home'
@@ -15,11 +14,10 @@ function App() {
       <Router>
         <Header />
         <Content>
-          <Carousel />
           <ContentPages>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/notice" element={<Notice />} />
+              <Route path="/notice/:id" element={<Notice />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </ContentPages>

@@ -7,6 +7,12 @@ interface Props {
   width?: 'economy'
 }
 
+export const Main = styled.div`
+  width: 95%;
+  height: 100%;
+  flex-direction: column
+`
+
 export const Content = styled.div`
   width: 95%;
   height: 100%
