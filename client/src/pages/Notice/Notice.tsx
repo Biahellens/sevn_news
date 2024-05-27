@@ -7,6 +7,8 @@ import {
   TitleNotice,
   SubTitleNotice,
   TextReference,
+  ContentText,
+  Text
 } from "./style";
 import { NewsService } from "@services/newsService";
 
@@ -84,6 +86,11 @@ export default function Notice() {
         </TextReference>
       </ContentTitle>
       <Carousel notice={true} />
+      <ContentText>
+        {newData.text.map((row) => (
+          <Text>{row}</Text>
+        ))}
+      </ContentText>
     </Main>
   );
 }

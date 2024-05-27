@@ -10,7 +10,8 @@ interface Props {
 export const Main = styled.div`
   width: 80%;
   height: 100%;
-  flex-direction: column
+  flex-direction: column;
+  padding-bottom: 3rem;
 `
 
 export const ContentTitle = styled.div`
@@ -59,10 +60,10 @@ export const TitleNotice = styled.text`
   font-size: 3.6rem;
 
   @media (max-width: 768px) {
-    font-size: 2.6rem;
+    font-size: 2rem;
   }
 
-  @media (max-width: 1440px) {
+  @media (min-width: 768px && min-width: 768px && max-width: 1440px) {
     font-size: 2.6rem;
   }
 `
@@ -75,7 +76,7 @@ export const SubTitleNotice = styled.text`
     font-size: 1.1rem;
   }
 
-  @media (max-width: 1440px) {
+  @media (min-width: 768px && max-width: 1440px) {
     font-size: 1.1rem;
   }
 `
@@ -85,4 +86,26 @@ export const TextReference = styled.text`
   font-size: 0.75rem;
   font-weight: bold;
   margin-top: 1.5rem;
+`
+
+export const ContentText = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+`
+
+export const Text = styled.text`
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    text-align: justify;
+  }
+
+  @media (min-width: 768px && max-width: 1440px) {
+    font-size: 1.2rem;
+  }
 `

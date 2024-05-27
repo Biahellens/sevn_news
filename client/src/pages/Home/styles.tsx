@@ -103,7 +103,7 @@ export const TitleNotice = styled.text<Props>`
     }};
   }
 
-  @media (max-width: 1440px) {
+  @media (min-width: 768px && max-width: 1440px) {
     font-size: ${({ fontSize }) => {
       switch (fontSize) {
         case 'Principal':
